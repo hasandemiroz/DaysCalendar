@@ -5,7 +5,8 @@
 
 import { getGreeting } from "./common.mjs";
 import daysData from "./days.json" with { type: "json" };
-
+import { createTable } from "./table";
 window.onload = function() {
-    document.querySelector("body").innerText = `${getGreeting()} - there are ${daysData.length} known days`;
+    const newDate = new Date();
+    createTable(newDate);
 }
