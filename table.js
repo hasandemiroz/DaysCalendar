@@ -45,7 +45,23 @@ export function createTable(newDate){
     }
     tableCalender.appendChild(firstRowDays);
 
-    while(dayCount)
+    while(dayCount <= totalDaysInMonth){
+        if(dayCount > totalDaysInMonth){
+            break;
+        }
+        const restRow = document.createElement("tr");
+        for(let i=0; i<=6; i++){
+            if(dayCount > totalDaysInMonth){
+            break;
+        }
+            let restCell = document.createElement("td");
+            restCell.innerHTML = dayCount;
+            restCell.style.border = "solid black 1px";
+            restRow.appendChild(restCell);
+            dayCount++
+        }
+        tableCalender.appendChild(restRow);
+    }
 
 
 
