@@ -1,7 +1,9 @@
+import daysData from "./days.json" with { type: "json" };
+import { getGreeting } from "./common.mjs";
 const newDate = new Date();
 export function createTable(newDate){
     const day = newDate.getDate();
-    const month = newDate.getMonth();
+    const month = 9; //newDate.getMonth();
     const year = newDate.getFullYear();
     console.log(year);
     const indexOfFirstDayOfMonth = new Date(year, month, 1).getDay();
@@ -38,7 +40,13 @@ export function createTable(newDate){
    
     for(let i = formattedIndexIfFirstDay ; i <= 6; i++){
         let firstCellsTD = document.createElement("td");
-        firstCellsTD.innerHTML = dayCount;
+        const receivedInfo = getGreeting(daysData, year, month, dayCount);
+            if(typeof receivedInfo == "object"){
+                firstCellsTD.innerHTML = receivedInfo.name;
+            }
+            else{
+                firstCellsTD.innerHTML = dayCount;
+            }
         firstCellsTD.style.border = "solid black 1px";
         firstRowDays.appendChild(firstCellsTD);
         dayCount++;
@@ -55,7 +63,13 @@ export function createTable(newDate){
             break;
         }
             let restCell = document.createElement("td");
-            restCell.innerHTML = dayCount;
+            const receivedInfo = getGreeting(daysData, year, month, dayCount);
+            if(typeof receivedInfo == "object"){
+                restCell.innerHTML = receivedInfo.name;
+            }
+            else{
+                restCell.innerHTML = dayCount;
+            }
             restCell.style.border = "solid black 1px";
             restRow.appendChild(restCell);
             dayCount++
