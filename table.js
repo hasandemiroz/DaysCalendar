@@ -1,5 +1,7 @@
 import daysData from "./days.json" with { type: "json" };
-import { getGreeting } from "./common.mjs";
+import { findingEvent, prepareOccasions } from "./common.mjs"
+
+
 const newDate = new Date();
 export function createTable(newDate){
     const day = newDate.getDate();
@@ -19,6 +21,11 @@ export function createTable(newDate){
     const tableCalender = document.getElementById("table");
 
     const weekDaysName = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const currentMonth = monthNames[month];
+    let ocaisions = prepareOccasions(daysData, weekDaysName, currentMonth);
+    let weekdayCounters = Array(7).fill(0); // counters for Sunday=0 ... Saturday=6
+
     const weekDaysNameTR = document.createElement("tr");
     for(let i = 0; i <= 6; i++){
         let weekName = document.createElement("th");
@@ -40,7 +47,7 @@ export function createTable(newDate){
    
     for(let i = formattedIndexIfFirstDay ; i <= 6; i++){
         let firstCellsTD = document.createElement("td");
-        const receivedInfo = getGreeting(daysData, year, month, dayCount);
+        const receivedInfo = findingEvent(ocaisions, year, month, dayCount, weekdayCounters);
             if(typeof receivedInfo == "object"){
                 firstCellsTD.innerHTML = receivedInfo.name;
             }
@@ -61,9 +68,10 @@ export function createTable(newDate){
         for(let i=0; i<=6; i++){
             if(dayCount > totalDaysInMonth){
             break;
-        }
+            }
             let restCell = document.createElement("td");
-            const receivedInfo = getGreeting(daysData, year, month, dayCount);
+            const receivedInfo = findingEvent(ocaisions, year, month, dayCount, weekdayCounters);
+            console.log("Day:", dayCount, "receivedInfo:", receivedInfo);
             if(typeof receivedInfo == "object"){
                 restCell.innerHTML = receivedInfo.name;
             }
