@@ -73,7 +73,9 @@ export function createTable(newDate){
             const receivedInfo = findingEvent(ocaisions, year, month, dayCount, weekdayCounters);
             console.log("Day:", dayCount, "receivedInfo:", receivedInfo);
             if(typeof receivedInfo == "object"){
-                restCell.innerHTML = receivedInfo.name;
+                restCell.innerHTML = `${receivedInfo.day}-${receivedInfo.name}`;
+                restCell.style.backgroundColor = "lightcoral";
+                createEventElement(receivedInfo);
             }
             else{
                 restCell.innerHTML = dayCount;
@@ -84,11 +86,30 @@ export function createTable(newDate){
         }
         tableCalender.appendChild(restRow);
     }
-
-
-
-
     
 }
+
+async function getTextFile(link) { // fetching and getting the text from the link
+  try {
+    const response = await fetch(link);
+    if (!response.ok) throw new Error('Failed to fetch');
+    const textContent = await response.text();
+    console.log(textContent);
+    return textContent;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+async function createEventElement(receivedInfo) { // gets the text and creates a li for the event description
+        let eventText = await getTextFile(receivedInfo.link);
+        console.log(eventText);
+
+        let eventLi = document.createElement("li");
+        eventLi.innerHTML = eventText;
+        document.getElementById("event-list").appendChild(eventLi);
+      }
+
+
 
 createTable(newDate);
