@@ -1,7 +1,11 @@
+import daysData from "./days.json" with { type: "json" };
+import { findingEvent, prepareOccasions } from "./common.mjs"
+
+
 const newDate = new Date();
 export function createTable(newDate){
     const day = newDate.getDate();
-    const month = newDate.getMonth();
+    const month = 9; //newDate.getMonth();
     const year = newDate.getFullYear();
     console.log(year);
     const indexOfFirstDayOfMonth = new Date(year, month, 1).getDay();
@@ -17,6 +21,11 @@ export function createTable(newDate){
     const tableCalender = document.getElementById("table");
 
     const weekDaysName = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const currentMonth = monthNames[month];
+    let ocaisions = prepareOccasions(daysData, weekDaysName, currentMonth);
+    let weekdayCounters = Array(7).fill(0); // counters for Sunday=0 ... Saturday=6
+
     const weekDaysNameTR = document.createElement("tr");
     for(let i = 0; i <= 6; i++){
         let weekName = document.createElement("th");
@@ -38,7 +47,13 @@ export function createTable(newDate){
    
     for(let i = formattedIndexIfFirstDay ; i <= 6; i++){
         let firstCellsTD = document.createElement("td");
-        firstCellsTD.innerHTML = dayCount;
+        const receivedInfo = findingEvent(ocaisions, year, month, dayCount, weekdayCounters);
+            if(typeof receivedInfo == "object"){
+                firstCellsTD.innerHTML = receivedInfo.name;
+            }
+            else{
+                firstCellsTD.innerHTML = dayCount;
+            }
         firstCellsTD.style.border = "solid black 1px";
         firstRowDays.appendChild(firstCellsTD);
         dayCount++;
@@ -53,9 +68,16 @@ export function createTable(newDate){
         for(let i=0; i<=6; i++){
             if(dayCount > totalDaysInMonth){
             break;
-        }
+            }
             let restCell = document.createElement("td");
-            restCell.innerHTML = dayCount;
+            const receivedInfo = findingEvent(ocaisions, year, month, dayCount, weekdayCounters);
+            console.log("Day:", dayCount, "receivedInfo:", receivedInfo);
+            if(typeof receivedInfo == "object"){
+                restCell.innerHTML = receivedInfo.name;
+            }
+            else{
+                restCell.innerHTML = dayCount;
+            }
             restCell.style.border = "solid black 1px";
             restRow.appendChild(restCell);
             dayCount++
