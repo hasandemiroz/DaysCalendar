@@ -19,7 +19,6 @@ export function createTable(newDate){
     console.log(totalDaysInMonth, " total days")
 
     const tableCalender = document.getElementById("table");
-    const eventList = document.getElementById("event-list");
 
     const weekDaysName = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
