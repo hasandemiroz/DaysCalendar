@@ -5,9 +5,9 @@ import { findingEvent, prepareOccasions } from "./common.mjs"
 const newDate = new Date();
 export function createTable(newDate){
     const day = newDate.getDate();
-    const month = 9; //newDate.getMonth();
+    const month = newDate.getMonth(); 
     const year = newDate.getFullYear();
-    console.log(year);
+    
     const indexOfFirstDayOfMonth = new Date(year, month, 1).getDay();
     console.log(indexOfFirstDayOfMonth);
     
@@ -18,11 +18,21 @@ export function createTable(newDate){
     const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
     console.log(totalDaysInMonth, " total days")
 
+    const tableContainer = document.getElementById("tableContainer");
+    
     const tableCalender = document.getElementById("table");
+    tableCalender.innerHTML = "";
+
+    const eventList = document.getElementById("event-list");
+    eventList.innerHTML = ""; // <-- clear old events
 
     const weekDaysName = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const currentMonth = monthNames[month];
+
+    const dateLabel = document.querySelector("h3");
+    dateLabel.innerHTML = `${currentMonth}-${year}`;
+
     let ocaisions = prepareOccasions(daysData, weekDaysName, currentMonth);
     let weekdayCounters = Array(7).fill(0); // counters for Sunday=0 ... Saturday=6
 
@@ -71,7 +81,7 @@ export function createTable(newDate){
             }
             let restCell = document.createElement("td");
             const receivedInfo = findingEvent(ocaisions, year, month, dayCount, weekdayCounters);
-            console.log("Day:", dayCount, "receivedInfo:", receivedInfo);
+            //console.log("Day:", dayCount, "receivedInfo:", receivedInfo);
             if(typeof receivedInfo == "object"){
                 restCell.innerHTML = `${receivedInfo.day}-${receivedInfo.name}`;
                 restCell.style.backgroundColor = "lightcoral";
@@ -86,6 +96,7 @@ export function createTable(newDate){
         }
         tableCalender.appendChild(restRow);
     }
+    tableContainer.appendChild(tableCalender);
     
 }
 
@@ -112,4 +123,4 @@ async function createEventElement(receivedInfo) { // gets the text and creates a
 
 
 
-createTable(newDate);
+//createTable(newDate);
