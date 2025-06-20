@@ -26,7 +26,7 @@ function previousMonth(){
     })
 }
 
-function nextMonth(newdate){
+function nextMonth(){
     document.getElementById("nextMonth").addEventListener("click", ()=>{
         const date = new Date(newDate);
         let year = date.getFullYear();
@@ -45,9 +45,48 @@ function nextMonth(newdate){
     })
 }
 
+function selectYearMonth(){
+    
+    for(let i = 1950; i <= 2050; i++){
+        let opt = document.createElement("option");
+        opt.value = i;
+        opt.innerHTML = i;
+        document.getElementById("yearDropDown").appendChild(opt);
+    }
+    
+
+    const monthNames = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+    for(let i = 0; i <= 11; i++){
+        let opt = document.createElement("option");
+        opt.value = i;
+        opt.innerHTML = monthNames[i];
+        document.getElementById("monthDropDown").appendChild(opt);
+    }
+    let selectedMonth = null;
+    let selectedYear = null;
+    document.getElementById("form-select").addEventListener("click", (e)=>{
+        e.preventDefault();
+        document.getElementById("monthDropDown").addEventListener("change", (event)=>{
+        selectedMonth = event.target.value;
+        console.log("Selected month:", selectedMonth);
+        })
+        document.getElementById("yearDropDown").addEventListener("change", (event)=>{
+        selectedYear = event.target.value;
+        console.log("Selected year:", selectedYear);
+        })
+        const day = new Date(newDate).getDate();
+        newDate = new Date(selectedYear, selectedMonth, day);
+        createTable(newDate);
+    })
+}
+
 window.onload = function() {
     
     createTable(newDate);
     previousMonth();
     nextMonth()
+    selectYearMonth()
 }
