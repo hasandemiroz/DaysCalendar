@@ -3,18 +3,37 @@
     <head>
         <script type="module" src="common.mjs"></script>
         <script type="module" src="web.mjs"></script>
-        <script type="module" src="table.js"></script>
+        <script type="module" src="table.mjs"></script>
     </head>
     <body>
+        <h3></h3>
         <div>
+            <button id="previousMonth">Previous Month</button>
+            <button id="nextMonth">Next Month</button>
+        </div>
+        <hr>
+        <div id="tableContainer">
             <table id="table" style="border: solid black 1px;">
 
             </table>
+        </div>
+        <div>
+            <form action="" id="form-select">
+            <select name="" id="yearDropDown">
+                <option value="">Select a year</option>
+            </select>
+            <select name="" id="monthDropDown">
+                <option value="">Select a month</option>
+            </select>
+            <button id="goBtn">Go</button>
+            </form>
         </div>
         <div>
             <ul id="event-list">
 
             </ul>
         </div>
+
+
     </body>
 </html>

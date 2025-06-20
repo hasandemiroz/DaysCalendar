@@ -70,10 +70,10 @@ let weekdayCounters = Array(7).fill(0); // counters for Sunday=0 ... Saturday=6
 
 const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-for (let day = 1; day <= daysInMonth; day++) {
-  const result = findingEvent(ocaisions, year, month, day, weekdayCounters);
-  console.log(result);
-}
+// for (let day = 1; day <= daysInMonth; day++) {
+//   const result = findingEvent(ocaisions, year, month, day, weekdayCounters);
+//   console.log(result);
+// }
 
 
 
