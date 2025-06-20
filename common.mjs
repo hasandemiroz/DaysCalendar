@@ -33,7 +33,7 @@ export function prepareOccasions(daysData, weekDays, currentMonth) {
 export function findingEvent(ocaisions, year, month, day, weekdayCounters) {
   const currentDate = new Date(year, month, day);
   let currentDayIndex = currentDate.getDay();
-  currentDayIndex = currentDayIndex == 0 ? 6 : currentDayIndex -1;
+  currentDayIndex = currentDayIndex == 0 ? 6 : currentDayIndex -1; // monday to sunday
 
   // Increase the counter for this weekday
   weekdayCounters[currentDayIndex] = (weekdayCounters[currentDayIndex] || 0) + 1;
@@ -42,6 +42,20 @@ export function findingEvent(ocaisions, year, month, day, weekdayCounters) {
     const ocaision = ocaisions[i];
 
     if (ocaision.dayIndex === currentDayIndex) {
+      if(ocaision.occurence == "last"){
+         const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
+         const remainingDays = totalDaysInMonth - day;
+         if(remainingDays < 7){
+            const eventDay = {
+              day: day,
+              name: ocaision.name,
+              link: ocaision.descriptionURL
+            };
+            ocaisions.splice(i, 1);
+            return eventDay;
+         }
+      } 
+      else{
       // Check if the counter for this weekday is same as this event's occurrence index
       if (weekdayCounters[currentDayIndex] === ocaision.occuranceIndex) {
         const eventDay = {
@@ -55,6 +69,7 @@ export function findingEvent(ocaisions, year, month, day, weekdayCounters) {
 
         return eventDay;
       }
+    }
     }
   }
 

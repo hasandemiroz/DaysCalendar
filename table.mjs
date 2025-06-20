@@ -33,7 +33,7 @@ export function createTable(newDate){
     const dateLabel = document.querySelector("h3");
     dateLabel.innerHTML = `${currentMonth}-${year}`;
 
-    let ocaisions = prepareOccasions(daysData, weekDaysName, currentMonth);
+    let ocaisions = prepareOccasions(daysData, weekDaysName, currentMonth); // prepare data from daysData for current month
     let weekdayCounters = Array(7).fill(0); // counters for Sunday=0 ... Saturday=6
 
     const weekDaysNameTR = document.createElement("tr");
