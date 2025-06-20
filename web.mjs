@@ -77,6 +77,11 @@ function selectYearMonth(){
         selectedYear = event.target.value;
         console.log("Selected year:", selectedYear);
         })
+        
+        if (selectedMonth === "" || selectedYear === "") {
+            alert("Please select both a month and year.");
+            return;
+        }
         const day = new Date(newDate).getDate();
         newDate = new Date(selectedYear, selectedMonth, day);
         createTable(newDate);

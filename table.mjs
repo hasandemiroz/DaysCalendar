@@ -61,6 +61,7 @@ export function createTable(newDate){
             if(typeof receivedInfo == "object"){
                 firstCellsTD.innerHTML = receivedInfo.name;
                 firstCellsTD.style.backgroundColor = "lightcoral";
+                createEventElement(receivedInfo);
             }
             else{
                 firstCellsTD.innerHTML = dayCount;
