@@ -60,6 +60,7 @@ export function createTable(newDate){
         const receivedInfo = findingEvent(ocaisions, year, month, dayCount, weekdayCounters);
             if(typeof receivedInfo == "object"){
                 firstCellsTD.innerHTML = receivedInfo.name;
+                firstCellsTD.style.backgroundColor = "lightcoral";
             }
             else{
                 firstCellsTD.innerHTML = dayCount;
